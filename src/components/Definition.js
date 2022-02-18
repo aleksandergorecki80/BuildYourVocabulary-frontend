@@ -25,6 +25,7 @@ const definition =  {
 const Definition = () => {
     return( 
         <div>
+            <h2>Definition:</h2>
             { definition.meanings[0].definitions[0].definition }
         </div>);
 };
