@@ -1,33 +1,38 @@
-import React from 'react';
+import { connect } from 'react-redux';
+import { fetchNewDefinition } from 'actions/definitionsActions';
+const randomWords = require('random-words');
 
-const definition =  {
-    meanings: [
-      {
-        partOfSpeech: 'noun',
-        definitions: [
-          {
-            definition:
-              'A set of rules that govern how words are combined to form phrases and sentences.',
-          },
-          {
-            definition:
-              'The formal rules of formulating the statements of a computer language.',
-          },
-          {
-            definition:
-              'The study of the structure of phrases, sentences and language.',
-          },
-        ],
-      },
-    ]
+
+
+
+const Definition = (props) => {
+  // const [ randomWord, setRandomWord ] = useState('')
+  
+  const handleGetRandomDefinition = () => {
+    const randomWord = randomWords();
+    props.fetchNewDefinition(randomWord);
+    console.log(`Curent redux state: ${props.definition}`)  
   }
 
-const Definition = () => {
     return( 
         <div>
             <h2>Definition:</h2>
-            { definition.meanings[0].definitions[0].definition }
+            <button onClick={handleGetRandomDefinition}>Get a random definition</button>
         </div>);
 };
 
-export default Definition;
+const mapStateToProps = (state) => {
+  return {
+    definition: state.definition,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchNewDefinition: (enteredWord) => {
+      dispatch(fetchNewDefinition(enteredWord))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Definition);
