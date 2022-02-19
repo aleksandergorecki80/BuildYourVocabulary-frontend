@@ -11,7 +11,6 @@ const Definition = (props) => {
   const handleGetRandomDefinition = () => {
     const randomWord = randomWords();
     props.fetchNewDefinition(randomWord);
-    console.log(`Curent redux state: ${props.definition}`)  
   }
 
     return( 

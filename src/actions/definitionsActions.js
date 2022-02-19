@@ -13,12 +13,21 @@ export const fetchNewDefinition = (enteredWord) => {
         try {           
             const result = await axios.get(`${api}${enteredWord}`, config);
             
-
+            // const payload = {
+            //     word: result.data.word,
+            //     phonetics: {
+            //         audio: result.data.phonetics[0].audio,
+            //         text: result.data.phonetics[0].text
+            //     },
+            //     meanings: result.data.meanings
+            // }
             console.log(result.data)
+            // console.log(payload)
 
-            // dispatch(requestSuccess(result));
+            // dispatch(requestSuccess(payload));
         } catch (err) {
-            console.log(err)
+            console.log('cos nie tak')
+            // console.log(err)
         }
 
     }
