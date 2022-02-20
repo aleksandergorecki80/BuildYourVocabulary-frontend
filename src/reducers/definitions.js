@@ -1,7 +1,9 @@
 
-import tmpState from '../_tmp_definitions'
+// import tmpState from '../_tmp_definitions'
 
-const initialState = tmpState;
+// const initialState = tmpState;
+
+const initialState = [];
 
 const definitionsReducer = (state = initialState, action) => {
     switch (action.type) {
