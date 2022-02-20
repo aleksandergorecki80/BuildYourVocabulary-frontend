@@ -11,17 +11,12 @@ export const fetchNewDefinition = (enteredWord) => {
     const api = process.env.REACT_APP_FREE_DICTIONARY_API;
     try {
       const result = await axios.get(`${api}${enteredWord}`, config);
-
       const payload = {
           word: result.data[0].word,
           meanings: result.data[0].meanings
       }
-    //   console.log(result.data[0].word)
-    //   console.log(result.data[0].meanings)
-
       dispatch(requestSuccess(payload));
     } catch (err) {
-      console.log('cos nie tak');
       console.log(err);
     }
   };
@@ -33,3 +28,19 @@ const requestSuccess = (payload) => {
     payload,
   };
 };
+
+export const resetState = () => {
+    return {
+        type: 'CLEAR_STATE',
+        payload: {
+          answerIsHidden: true
+        }
+    }
+}
+
+export const setAnswerIsHidden = (payload) => {
+  return {
+    type: 'IS_ANSWER_HIDDEN',
+    payload
+  }
+}

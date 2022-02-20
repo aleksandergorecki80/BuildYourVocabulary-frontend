@@ -1,17 +1,22 @@
 
-// import tmpState from '../_tmp_definitions'
-
-// const initialState = tmpState;
-
-const initialState = [];
+const initialState = {
+    answerIsHidden: true
+};
 
 const definitionsReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'REQUEST_SUCCESS':
-            return [
+            return {
                 ...state,
-                action.payload
-            ];
+                data: action.payload
+            };
+        case 'IS_ANSWER_HIDDEN':
+            return {
+                ...state,
+                answerIsHidden: action.payload
+            }
+        case 'CLEAR_STATE':
+            return action.payload;
         default: 
             return state;
     }

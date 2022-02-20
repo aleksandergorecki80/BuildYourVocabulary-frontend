@@ -2,7 +2,7 @@ import React from "react";
 
 import { shallow } from 'enzyme'
 import App from 'components/App';
-import Definition from "components/Definition";
+import Definition from "components/DefinitionList";
 import WordInput from "components/WordInput";
 import Solution from "components/Solution";
 

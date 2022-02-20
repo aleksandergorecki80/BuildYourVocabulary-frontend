@@ -1,5 +1,5 @@
 import React from "react";
-import Definition from "components/Definition";
+import DefinitionList from "components/DefinitionList";
 import WordInput from "components/WordInput";
 
 import store from "store";
@@ -9,7 +9,7 @@ const App = () => {
   return (
     <Provider store={store}>
     <div className="App">
-        <Definition />
+        <DefinitionList />
         <WordInput />
     </div>
     </Provider>
