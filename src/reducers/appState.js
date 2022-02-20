@@ -1,5 +1,7 @@
 const initialState = {
-    answerIsHidden: true
+    answerIsHidden: true,
+    answerGiven: false,
+    answerCorrect: false
 };
 
 const appStateReducer = (state = initialState, action) => {
@@ -9,6 +11,16 @@ const appStateReducer = (state = initialState, action) => {
         ...state,
         answerIsHidden: action.payload,
       };
+    case 'IS_ANSWER_GIVEN':
+      return {
+        ...state,
+        answerGiven: action.payload
+      }
+    case 'SET_ANSWER_CORRECT':
+      return {
+        ...state,
+        answerCorrect: true
+      }
     case 'RESET_STATE':
       return initialState;
     default:

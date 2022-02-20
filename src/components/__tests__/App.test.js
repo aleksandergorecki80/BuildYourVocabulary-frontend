@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import App from 'components/App';
 import Definition from "components/DefinitionList";
 import WordInput from "components/WordInput";
-import Solution from "components/Solution";
+// import Solution from "components/Solution";
 
 
 describe('App tests:', () => {
@@ -21,7 +21,7 @@ describe('App tests:', () => {
         expect(app.find(WordInput)).toHaveLength(1);
     });
     
-    it('shows a Solution component', () => {
-        expect(app.find(Solution)).toHaveLength(1);
-    });
+    // it('shows a Solution component', () => {
+    //     expect(app.find(Solution)).toHaveLength(1);
+    // });
 });

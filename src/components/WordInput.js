@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setAnswerIsHidden } from 'actions/appStateActions';
+import { isAnswerHidden, isAnswerGiven, setAnswerCorrect } from 'actions/appStateActions';
 
 const WordInput = (props) => {
   const [enteredWord, setEnteredWord] = useState('');
   const [word, setWord] = useState('');
-  const [answerGiven, setAnswerGiven] = useState(false);
-  const [answerCorrect, setAnswerCorrect] = useState(false);
+ 
   
   useEffect(() => {
     if (props.definitionData) {
@@ -22,11 +21,11 @@ const WordInput = (props) => {
     e.preventDefault();
 
     // CHECK IF ANSWER IS CORRECT
-    if(!answerGiven) {
-      setAnswerGiven(true)
+    if(!props.appState.answerGiven) {
+      props.isAnswerGiven(true)
     }
     if(checkIfCorrect()){
-      setAnswerCorrect(true);
+      props.setAnswerCorrect();
     }
 
     // CLEAR INPUT
@@ -38,7 +37,7 @@ const WordInput = (props) => {
   }
 
   const showTheAnswer = () => {
-    props.setAnswerIsHidden(false)
+    props.isAnswerHidden(false)
   };
 
   return (
@@ -53,8 +52,8 @@ const WordInput = (props) => {
         />
         <button>Send</button>
       </form>
-      <p>{ !answerGiven ? '' : (answerCorrect ? 'CORRECT' : 'INCORRECT, try again!')}</p>
-      <button onClick={showTheAnswer}>Show the answer</button>
+      <p>{ !props.appState.answerGiven ? '' : (props.appState.answerCorrect ? 'CORRECT' : 'INCORRECT, try again!')}</p>
+      {!props.appState.answerCorrect && <button onClick={showTheAnswer}>Show the answer</button>}
       { !props.appState.answerIsHidden && <p className='answer'>{ word.charAt(0).toUpperCase() + word.slice(1) }</p>}
     </div>
   );
@@ -69,8 +68,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setAnswerIsHidden: (payload) => {
-      dispatch(setAnswerIsHidden(payload))
+    isAnswerHidden: (payload) => {
+      dispatch(isAnswerHidden(payload))
+    },
+    isAnswerGiven: (payload) => {
+      dispatch(isAnswerGiven(payload))
+    },
+    setAnswerCorrect: (payload) => {
+      dispatch(setAnswerCorrect(payload))
     }
   }
 }
