@@ -1,10 +1,12 @@
+// import { rword } from 'rword';
+
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchNewDefinition, resetState } from 'actions/definitionsActions';
 import Definition from 'components/Definition';
 
 // const randomWords = require('random-words');
-import { rword } from 'rword';
+const randomWords = require('random-english-words');
 
 
 const DefinitionList = (props) => {
@@ -15,8 +17,8 @@ const DefinitionList = (props) => {
     props.resetState();
 
     //  GENERATE A RANDOM WORD
-    // const randomWord = randomWords();
-    const randomWord = rword.generate();;
+    const randomWord = randomWords();
+    // const randomWord = rword.generate();
     props.fetchNewDefinition(randomWord);
   };
 

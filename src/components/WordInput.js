@@ -5,6 +5,8 @@ import { setAnswerIsHidden } from 'actions/definitionsActions';
 const WordInput = (props) => {
   const [enteredWord, setEnteredWord] = useState('');
   const [word, setWord] = useState('');
+  const [answerGiven, setAnswerGiven] = useState(false);
+  const [answerCorrect, setAnswerCorrect] = useState(false);
   
 
   useEffect(() => {
@@ -19,8 +21,22 @@ const WordInput = (props) => {
 
   const hanleOnSubmit = (e) => {
     e.preventDefault();
+
+    // CHECK IF ANSWER IS CORRECT
+    if(!answerGiven) {
+      setAnswerGiven(true)
+    }
+    if(checkIfCorrect()){
+      setAnswerCorrect(true);
+    }
+
+    // CLEAR INPUT
     setEnteredWord('');
   };
+
+  const checkIfCorrect = () =>{
+    return enteredWord === word;
+  }
 
   const showTheAnswer = () => {
     props.setAnswerIsHidden(false)
@@ -38,6 +54,7 @@ const WordInput = (props) => {
         />
         <button>Send</button>
       </form>
+      <p>{ !answerGiven ? '' : (answerCorrect ? 'CORRECT' : 'INCORRECT, try again!')}</p>
       <button onClick={showTheAnswer}>Show the answer</button>
       { !props.definitionsState.answerIsHidden && <p className='answer'>{ word.charAt(0).toUpperCase() + word.slice(1) }</p>}
     </div>
