@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchNewDefinition, resetState } from 'actions/definitionsActions';
+import { fetchNewDefinition, resetDefinitionState } from 'actions/definitionsActions';
+import { resetAppState } from 'actions/appStateActions';
 import Definition from 'components/Definition';
 
 // const randomWords = require('random-words');
@@ -14,8 +15,8 @@ const DefinitionList = (props) => {
   // const [ numberOfPartOfSpeach, setNumberOfPartOfSpeach ] = useState(0)
 
   const handleGetRandomDefinition = () => {
-    props.resetState();
-
+    props.resetDefinitionState();
+    props.resetAppState();
     //  GENERATE A RANDOM WORD
     const randomWord = randomWords();
     // const randomWord = rword.generate();
@@ -23,14 +24,14 @@ const DefinitionList = (props) => {
   };
 
   useEffect(() => {
-    if (props.definitionsState.data) {
-      setMeanings(props.definitionsState.data.meanings);
+    if (props.definitionData) {
+      setMeanings(props.definitionData.meanings);
 
       // if(props.definitionData[0].meanings.length > 1){
       //   setNumberOfPartOfSpeach(props.definitionData[0].meanings.length - 1)
       // }
     }
-  }, [props.definitionsState]);
+  }, [props.definitionData]);
 
   return (
     <div>
@@ -52,7 +53,7 @@ const DefinitionList = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    definitionsState: state.definition,
+    definitionData: state.definition,
   };
 };
 
@@ -61,9 +62,12 @@ const mapDispatchToProps = (dispatch) => {
     fetchNewDefinition: (enteredWord) => {
       dispatch(fetchNewDefinition(enteredWord));
     },
-    resetState: () => {
-      dispatch(resetState());
+    resetDefinitionState: () => {
+      dispatch(resetDefinitionState());
     },
+    resetAppState: () => {
+      dispatch(resetAppState());
+    }
   };
 };
 

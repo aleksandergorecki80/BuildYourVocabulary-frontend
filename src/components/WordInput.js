@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setAnswerIsHidden } from 'actions/definitionsActions';
+import { setAnswerIsHidden } from 'actions/appStateActions';
 
 const WordInput = (props) => {
   const [enteredWord, setEnteredWord] = useState('');
@@ -8,12 +8,11 @@ const WordInput = (props) => {
   const [answerGiven, setAnswerGiven] = useState(false);
   const [answerCorrect, setAnswerCorrect] = useState(false);
   
-
   useEffect(() => {
-    if (props.definitionsState.data) {
-      setWord(props.definitionsState.data.word);
+    if (props.definitionData) {
+      setWord(props.definitionData.word);
     }
-  }, [props.definitionsState.data]);
+  }, [props.definitionData]);
 
   const onKeyUphandler = (e) => {
     setEnteredWord(e.target.value);
@@ -56,14 +55,15 @@ const WordInput = (props) => {
       </form>
       <p>{ !answerGiven ? '' : (answerCorrect ? 'CORRECT' : 'INCORRECT, try again!')}</p>
       <button onClick={showTheAnswer}>Show the answer</button>
-      { !props.definitionsState.answerIsHidden && <p className='answer'>{ word.charAt(0).toUpperCase() + word.slice(1) }</p>}
+      { !props.appState.answerIsHidden && <p className='answer'>{ word.charAt(0).toUpperCase() + word.slice(1) }</p>}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    definitionsState: state.definition,
+    definitionData: state.definition,
+    appState: state.appState
   };
 };
 

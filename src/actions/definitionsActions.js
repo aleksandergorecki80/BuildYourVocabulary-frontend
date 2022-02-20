@@ -29,18 +29,8 @@ const requestSuccess = (payload) => {
   };
 };
 
-export const resetState = () => {
+export const resetDefinitionState = () => {
     return {
-        type: 'CLEAR_STATE',
-        payload: {
-          answerIsHidden: true
-        }
+        type: 'RESET_STATE',
     }
-}
-
-export const setAnswerIsHidden = (payload) => {
-  return {
-    type: 'IS_ANSWER_HIDDEN',
-    payload
-  }
 }
